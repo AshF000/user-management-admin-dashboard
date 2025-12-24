@@ -1,0 +1,9 @@
+.perPageSelet,
+.perPageLabel,
+.perPageOpt {
+  color: white !important;
+}
+
+.perPageOpt {
+  background-color: var(--bg) !important;
+}

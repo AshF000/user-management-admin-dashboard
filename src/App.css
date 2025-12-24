@@ -7,3 +7,9 @@ h1 {
   margin: 0 auto;
   padding: 0 2rem;
 }
+
+.flex-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

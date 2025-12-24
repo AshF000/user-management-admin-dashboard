@@ -13,6 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --mycolor: red;
+  --bg: #242424;
 }
 
 * {
