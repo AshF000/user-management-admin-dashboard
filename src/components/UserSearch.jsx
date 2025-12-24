@@ -1,26 +1,17 @@
 import "./usersearch.css";
+import { Input } from "antd";
 
-const UserSearch = ({ className, type, onChange, onClear, value }) => {
+const UserSearch = ({ className, onChange, value }) => {
   return (
     <>
       <div className="input-wrapper">
-        <input
+        <Input
           className={`searchInp ${className || ""}`}
-          type={type}
+          placeholder="Search User"
+          allowClear
           onChange={onChange}
           value={value}
         />
-
-        {value && (
-          <button
-            type="button"
-            className="inpCross"
-            onClick={onClear}
-            aria-label="Clear input"
-          >
-            X
-          </button>
-        )}
       </div>
     </>
   );

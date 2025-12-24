@@ -1,43 +1,21 @@
+.searchInp,
+.searchInp input::placeholder {
+  background-color: var(--bg-dark) !important;
+  color: var(--text-primary) !important;
+}
+
+.searchInp:focus,
+.searchInp:focus-within {
+  border-color: var(--text-primary) !important;
+}
+
 .input-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  max-width: 360px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 360px;
 }
 
-.searchInp {
-    width: 100%;
-    padding: 10px 36px 10px 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.searchInp:focus {
-  border-color: #acc5fc; /* blue-600 */
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
-}
-
-.inpCross {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 14px;
-  color: #ffffff;
-  padding: 4px;
-  line-height: 1;
-}
-
-.inpCross:hover {
-  color: #ffd8d8;
-}
-
-.inpCross:focus {
-  outline: none;
+.searchInp span button {
+  color: var(--text-primary) !important;
 }
