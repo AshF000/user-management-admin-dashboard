@@ -12,13 +12,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  :root {
-    --bg-dark: #141414;
-    --border-dark: #303030;
-    --text-primary: #e6e6e6;
-    --text-muted: #8c8c8c;
-    --accent: #ff4d4f;
-  }
+  --bg-dark: #141414;
+  --border-dark: #303030;
+  --text-primary: #e6e6e6;
+  --text-muted: #8c8c8c;
+  --accent: #ff4d4f;
 }
 
 * {
