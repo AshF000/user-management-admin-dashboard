@@ -7,6 +7,7 @@ import { getUsers } from "./api/usersApi";
 import UserSearch from "./components/UserSearch";
 import ShowPerPage from "./components/ShowPerPage";
 import UsersList from "./components/UsersList";
+import Search from "antd/es/input/Search";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -42,6 +43,10 @@ function App() {
     fetchUsers();
   }, [debouncedSearch, optVal, skip]);
 
+  const onSearch = (e) => {
+    console.log(e);
+  };
+
   return (
     <div className="container">
       <h1>User Management Admin Dashboard</h1>
@@ -54,8 +59,19 @@ function App() {
       <div style={{ marginTop: "2rem" }}>
         <UsersList users={users} limit={optVal} />
       </div>
+
+      <Search
+      styles={{width:"200px"}}
+        placeholder="input search text"
+        onSearch={onSearch}
+        onPressEnter={onSearch}
+        allowClear
+        enterButton
+      />
     </div>
   );
 }
 
 export default App;
+
+
