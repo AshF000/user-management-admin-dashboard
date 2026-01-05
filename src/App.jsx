@@ -7,8 +7,8 @@ import { getUsers } from "./api/usersApi";
 import UserSearch from "./components/UserSearch";
 import ShowPerPage from "./components/ShowPerPage";
 import UsersList from "./components/UsersList";
-import Search from "antd/es/input/Search";
 import ToggleDark from "./components/ToggleDark";
+import GoTo from "./components/GoTo";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -17,6 +17,7 @@ function App() {
 
   const [users, setUsers] = useState([]);
   const [skip, setSkip] = useState(0);
+  const [page, setPage] = useState(1);
 
   const handleSearch = (e) => {
     setSkip(0);
@@ -44,8 +45,8 @@ function App() {
     fetchUsers();
   }, [debouncedSearch, optVal, skip]);
 
-  const onSearch = (e) => {
-    console.log(e);
+  const onSearch = () => {
+    console.log(page);
   };
 
   return (
@@ -70,14 +71,9 @@ function App() {
         <UsersList users={users} limit={optVal} />
       </div>
 
-      <Search
-        styles={{ width: "200px" }}
-        placeholder="input search text"
-        onSearch={onSearch}
-        onPressEnter={onSearch}
-        allowClear
-        enterButton
-      />
+      <div className="gap-2 flex justify-center">
+        <GoTo value={page} setValue={setPage} onSearch={onSearch} />
+      </div>
     </div>
   );
 }

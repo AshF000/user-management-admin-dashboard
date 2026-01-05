@@ -12,6 +12,10 @@ import { cn } from "@/lib/utils";
 import { TrashIcon } from "lucide-react";
 
 const UsersList = ({ users }) => {
+  const handleStatus = (e, user) => {
+    console.log(user.status === e.target.value);
+  };
+
   return (
     <>
       <Table>
@@ -45,10 +49,10 @@ const UsersList = ({ users }) => {
                     {user.firstName} {user.lastName}
                   </TableCell>
                   <TableCell>{user.email}</TableCell>
-                  <TableCell className={cn("flex gap-2 items-center")}>
+                  <TableCell>
                     <span
                       className={cn(
-                        "inline-block w-2 h-2 rounded",
+                        "mr-2 inline-block w-2 h-2 rounded",
                         isActive ? "bg-emerald-500" : "bg-red-400"
                       )}
                       aria-label={isActive ? "Active" : "Inactive"}
@@ -57,6 +61,9 @@ const UsersList = ({ users }) => {
                   </TableCell>
                   <TableCell className={"text-right"}>
                     <Button
+                      onClick={(e) => {
+                        handleStatus(e, user);
+                      }}
                       className={cn(
                         "mr-2",
                         isActive
@@ -71,15 +78,8 @@ const UsersList = ({ users }) => {
                       size="icon-sm"
                       aria-label="Submit"
                       className={cn("hover:bg-red-400")}
-                      // className={
-                      //   "bg-red-500 rounded-full hover:bg-black dark:hover:bg-white "
-                      // }
                     >
-                      <TrashIcon
-                        size={20}
-                        strokeWidth={2}
-                        // className="text-white dark:hover:text-red-500"
-                      />
+                      <TrashIcon size={20} strokeWidth={2} />
                     </Button>
                   </TableCell>
                 </TableRow>

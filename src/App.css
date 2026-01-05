@@ -1,3 +1,10 @@
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 h1 {
   margin-top: 2rem;
   text-align: center;
