@@ -1,23 +1,27 @@
-import "./showperpage.css";
-import { Select, Space } from "antd";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const ShowPerPage = ({ optVal, onChange }) => {
   return (
-    <Space wrap>
+    <div className="flex gap-6 items-center">
       <label>Show per page</label>
-      <Select
-      className="perPageSelet"
-        defaultValue={optVal}
-        style={{ width: 120 }}
-        onChange={onChange}
-        options={[
-          { value: 5, label: "5" },
-          { value: 10, label: "10" },
-          { value: 20, label: "20" },
-          { value: 50, label: "50" },
-        ]}
-      />
-    </Space>
+
+      <Select onValueChange={onChange} defaultValue={optVal}>
+        <SelectTrigger className="w-[120px!]">
+          <SelectValue placeholder="Theme" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={5}>5</SelectItem>
+          <SelectItem value={10}>10</SelectItem>
+          <SelectItem value={15}>15</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 

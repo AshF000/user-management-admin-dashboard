@@ -8,6 +8,7 @@ import UserSearch from "./components/UserSearch";
 import ShowPerPage from "./components/ShowPerPage";
 import UsersList from "./components/UsersList";
 import Search from "antd/es/input/Search";
+import ToggleDark from "./components/ToggleDark";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -49,9 +50,18 @@ function App() {
 
   return (
     <div className="container">
-      <h1>User Management Admin Dashboard</h1>
+      <div className="flex justify-center gap-10 items-center mt-10">
+        <h1 className="text-4xl font-bold mt-0!">
+          User Management Admin Dashboard
+        </h1>
+        <ToggleDark />
+      </div>
       <div className="flex-center" style={{ marginTop: "2rem" }}>
-        <UserSearch value={searchValue} onChange={handleSearch} />
+        <UserSearch
+          value={searchValue}
+          setValue={setSearchValue}
+          onChange={handleSearch}
+        />
 
         <ShowPerPage optVal={optVal} onChange={handleSelect} />
       </div>
@@ -61,7 +71,7 @@ function App() {
       </div>
 
       <Search
-      styles={{width:"200px"}}
+        styles={{ width: "200px" }}
         placeholder="input search text"
         onSearch={onSearch}
         onPressEnter={onSearch}
@@ -73,5 +83,3 @@ function App() {
 }
 
 export default App;
-
-
