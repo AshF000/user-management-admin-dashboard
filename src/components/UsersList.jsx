@@ -11,11 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { TrashIcon } from "lucide-react";
 
-const UsersList = ({ users }) => {
-  const handleStatus = (e, user) => {
-    console.log(user.status === e.target.value);
-  };
-
+const UsersList = ({ users, handleStatus, handleUserDelete }) => {
   return (
     <>
       <Table>
@@ -25,7 +21,7 @@ const UsersList = ({ users }) => {
             <TableHead className="w-14 text-right">Id</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Status</TableHead>
+            <TableHead className={cn("min-w-24")}>Status</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -39,7 +35,6 @@ const UsersList = ({ users }) => {
             </TableRow>
           ) : (
             users.map((user) => {
-              const isActive = user.gender !== "male";
               return (
                 <TableRow key={user.id}>
                   <TableCell className="w-14 text-right font-medium">
@@ -50,34 +45,51 @@ const UsersList = ({ users }) => {
                   </TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
-                    <span
-                      className={cn(
-                        "mr-2 inline-block w-2 h-2 rounded",
-                        isActive ? "bg-emerald-500" : "bg-red-400"
-                      )}
-                      aria-label={isActive ? "Active" : "Inactive"}
-                    />
-                    {isActive ? "Active" : "Inactive"}
+                    <div className={cn("flex items-center w-full h-full")}>
+                      <span className={cn("relative flex size-3 mr-2")}>
+                        {user.gender === "female" && (
+                          <span
+                            className={cn(
+                              "absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 bg-emerald-500"
+                            )}
+                          ></span>
+                        )}
+                        <span
+                          className={cn(
+                            "relative inline-flex size-3 rounded-full",
+                            user.gender === "female"
+                              ? "bg-emerald-500"
+                              : "bg-red-400"
+                          )}
+                          aria-label={
+                            user.gender === "female" ? "Active" : "Inactive"
+                          }
+                        ></span>
+                      </span>
+                      {user.gender.charAt(0).toUpperCase() +
+                        user.gender.slice(1)}
+                    </div>
                   </TableCell>
                   <TableCell className={"text-right"}>
                     <Button
-                      onClick={(e) => {
-                        handleStatus(e, user);
+                      onClick={() => {
+                        handleStatus(user.id);
                       }}
                       className={cn(
-                        "mr-2",
-                        isActive
+                        "mr-2 w-24",
+                        user.gender === "female"
                           ? "bg-red-400 dark:bg-red-500 dark:text-white"
                           : "bg-emerald-500 dark:bg-emerald-600 dark:text-white"
                       )}
                     >
-                      {isActive ? "Deactivate" : "Activate"}
+                      {user.gender === "female" ? "Deactivate" : "Activate"}
                     </Button>
                     <Button
                       variant="destructive"
                       size="icon-sm"
-                      aria-label="Submit"
-                      className={cn("hover:bg-red-400")}
+                      aria-label="Delete"
+                      className={cn("hover:bg-red-400 rounded-full")}
+                      onClick={() => handleUserDelete(user.id)}
                     >
                       <TrashIcon size={20} strokeWidth={2} />
                     </Button>

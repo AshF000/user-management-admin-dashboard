@@ -14,40 +14,56 @@ function App() {
   const [searchValue, setSearchValue] = useState("");
   // ShowPerPage.jsx
   const [optVal, setOptVal] = useState(5);
-
   const [users, setUsers] = useState([]);
-  const [skip, setSkip] = useState(0);
   const [page, setPage] = useState(1);
 
+  // handle users search
   const handleSearch = (e) => {
-    setSkip(0);
     setSearchValue(e.target.value);
   };
 
+  // handle #user/page
   const handleSelect = (val) => {
-    setSkip(0);
     setOptVal(Number(val));
+  };
+
+  // handle user status toggle
+  const handleStatus = (id) => {
+    setUsers(
+      users.map((u) =>
+        u.id !== id
+          ? u
+          : { ...u, gender: u.gender === "male" ? "female" : "male" }
+      )
+    );
+  };
+
+  // handle user delete
+  const handleUserDelete = (id) => {
+    setUsers(users.filter((u) => u.id !== id));
+  };
+
+  // handle goto page
+  const handleGoto = (val) => {
+    setPage(+val);
   };
 
   const debouncedSearch = useDebounce(searchValue, 500);
 
   useEffect(() => {
     const fetchUsers = async () => {
+      const skip = (page - 1) * optVal;
       try {
         let data = await getUsers(optVal, skip, debouncedSearch);
 
-        setUsers(data);
+        setUsers(data.users);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
 
     fetchUsers();
-  }, [debouncedSearch, optVal, skip]);
-
-  const onSearch = () => {
-    console.log(page);
-  };
+  }, [debouncedSearch, optVal, page]);
 
   return (
     <div className="container">
@@ -68,11 +84,16 @@ function App() {
       </div>
 
       <div style={{ marginTop: "2rem" }}>
-        <UsersList users={users} limit={optVal} />
+        <UsersList
+          handleStatus={handleStatus}
+          users={users}
+          limit={optVal}
+          handleUserDelete={handleUserDelete}
+        />
       </div>
 
       <div className="gap-2 flex justify-center">
-        <GoTo value={page} setValue={setPage} onSearch={onSearch} />
+        <GoTo handleGoto={handleGoto} />
       </div>
     </div>
   );

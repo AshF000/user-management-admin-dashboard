@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 
-const GoTo = ({ value, setValue, onSearch }) => {
-  const handleChange = (e) => {
-    setValue((p) => (p === value ? e.target.value : p));
+const GoTo = ({ handleGoto }) => {
+  const gotoRef = useRef(null);
+  const [value, setValue] = useState("");
+
+  const handleBtn = () => {
+    if (!value) return;
+    handleGoto(value);
+    setValue("");
   };
 
   return (
@@ -13,14 +18,18 @@ const GoTo = ({ value, setValue, onSearch }) => {
       <label htmlFor="goto">
         Go To:{" "}
         <Input
+          ref={gotoRef}
           id="goto"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
           type={"number"}
           placeholder={"Page#"}
-          onChange={handleChange}
           className={cn("w-22")}
         />
       </label>
-      <Button onClick={onSearch}>Go</Button>
+      <Button onClick={handleBtn}>Go</Button>
     </>
   );
 };

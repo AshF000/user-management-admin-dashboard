@@ -7,7 +7,7 @@ const getUsers = async (limit = 5, skip = 0, search = "") => {
 
   const res = await fetch(usersApi);
   const data = await res.json();
-  return data.users;
+  return data;
 };
 
 export { getUsers };
