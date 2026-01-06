@@ -14,7 +14,7 @@ const GoTo = ({ handleGoto }) => {
   };
 
   return (
-    <>
+    <div>
       <label htmlFor="goto">
         Go To:{" "}
         <Input
@@ -29,8 +29,8 @@ const GoTo = ({ handleGoto }) => {
           className={cn("w-22")}
         />
       </label>
-      <Button onClick={handleBtn}>Go</Button>
-    </>
+      <Button className={"ml-2"} onClick={handleBtn}>Go</Button>
+    </div>
   );
 };
 

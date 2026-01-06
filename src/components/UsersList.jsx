@@ -1,21 +1,35 @@
 import { Button } from "@/components/ui/button";
+import { TrashIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
-  Table,
-  TableBody,
-  TableCaption,
+  TableHeader,
   TableCell,
   TableHead,
-  TableHeader,
+  TableBody,
   TableRow,
+  Table,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
-import { TrashIcon } from "lucide-react";
 
-const UsersList = ({ users, handleStatus, handleUserDelete }) => {
+const UsersList = ({ users, setUsers }) => {
+  // handle user status toggle
+  const handleStatus = (id) => {
+    setUsers(
+      users.map((u) =>
+        u.id !== id
+          ? u
+          : { ...u, gender: u.gender === "male" ? "female" : "male" }
+      )
+    );
+  };
+
+  // handle user delete
+  const handleUserDelete = (id) => {
+    setUsers(users.filter((u) => u.id !== id));
+  };
+
   return (
-    <>
+    <div className={cn("max-h-[calc(100vh-250px)] overflow-y-auto ")}>
       <Table>
-        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader>
           <TableRow>
             <TableHead className="w-14 text-right">Id</TableHead>
@@ -100,57 +114,7 @@ const UsersList = ({ users, handleStatus, handleUserDelete }) => {
           )}
         </TableBody>
       </Table>
-
-      {/* <table className="users-table">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {users.length === 0 ? (
-            <tr>
-              <td colSpan="5">No users found</td>
-            </tr>
-          ) : (
-            users.map((user) => {
-              const isActive = user.gender !== "male";
-
-              return (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>
-                    {user.firstName} {user.lastName}
-                  </td>
-                  <td>{user.email}</td>
-                  <td className="status-cell">
-                    <span
-                      className={`status-dot ${
-                        isActive ? "active" : "inactive"
-                      }`}
-                      aria-label={isActive ? "Active" : "Inactive"}
-                    />
-                    {isActive ? "Active" : "Inactive"}
-                  </td>
-
-                  <td className="actions">
-                    <button className="btn danger">Delete</button>
-                    <button className="btn">
-                      {isActive ? "Deactivate" : "Activate"}
-                    </button>
-                  </td>
-                </tr>
-              );
-            })
-          )}
-        </tbody>
-      </table> */}
-    </>
+    </div>
   );
 };
 
