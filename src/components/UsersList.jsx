@@ -9,8 +9,9 @@ import {
   TableRow,
   Table,
 } from "@/components/ui/table";
+import { Skeleton } from "./ui/skeleton";
 
-const UsersList = ({ users, setUsers }) => {
+const UsersList = ({ isLoading, users, setUsers }) => {
   // handle user status toggle
   const handleStatus = (id) => {
     setUsers(
@@ -32,16 +33,22 @@ const UsersList = ({ users, setUsers }) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-14 text-right">Id</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead className={cn("min-w-24")}>Status</TableHead>
-            <TableHead className="text-right">Action</TableHead>
+            <TableHead className="w-1/12">Id</TableHead>
+            <TableHead className={"w-3/12"}>Name</TableHead>
+            <TableHead className={"w-3/12"}>Email</TableHead>
+            <TableHead className={"w-2/12"}>Status</TableHead>
+            <TableHead className="w-3/12 text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
-          {users.length === 0 ? (
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={5} className="w-14">
+                <Skeleton className="w-full h-12" />
+              </TableCell>
+            </TableRow>
+          ) : users.length === 0 ? (
             <TableRow>
               <TableCell colSpan="5" className="text-center font-medium">
                 No Users Found
@@ -51,9 +58,7 @@ const UsersList = ({ users, setUsers }) => {
             users.map((user) => {
               return (
                 <TableRow key={user.id}>
-                  <TableCell className="w-14 text-right font-medium">
-                    {user.id}
-                  </TableCell>
+                  <TableCell className="w-14 font-medium">{user.id}</TableCell>
                   <TableCell>
                     {user.firstName} {user.lastName}
                   </TableCell>
