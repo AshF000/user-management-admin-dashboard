@@ -10,8 +10,14 @@ import {
   Table,
 } from "@/components/ui/table";
 import { Skeleton } from "./ui/skeleton";
+import Popup from "./Popup";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const UsersList = ({ isLoading, users, setUsers }) => {
+  const [openDialogue, setOpenDialogue] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+
   // handle user status toggle
   const handleStatus = (id) => {
     setUsers(
@@ -24,8 +30,17 @@ const UsersList = ({ isLoading, users, setUsers }) => {
   };
 
   // handle user delete
-  const handleUserDelete = (id) => {
-    setUsers(users.filter((u) => u.id !== id));
+  const handleUserDelete = (user) => {
+    setOpenDialogue(true);
+    setUserToDelete(user);
+  };
+
+  const confirmDelete = () => {
+    if (!userToDelete) return;
+    setUsers(users.filter((u) => u.id !== userToDelete.id));
+    setOpenDialogue(false);
+    toast.success(`User Deleted - Id: ${userToDelete.id}`);
+    setUserToDelete(null);
   };
 
   return (
@@ -43,12 +58,14 @@ const UsersList = ({ isLoading, users, setUsers }) => {
 
         <TableBody>
           {isLoading ? (
+            // users skeleton
             <TableRow>
               <TableCell colSpan={5} className="w-14">
                 <Skeleton className="w-full h-12" />
               </TableCell>
             </TableRow>
           ) : users.length === 0 ? (
+            // no users
             <TableRow>
               <TableCell colSpan="5" className="text-center font-medium">
                 No Users Found
@@ -56,6 +73,7 @@ const UsersList = ({ isLoading, users, setUsers }) => {
             </TableRow>
           ) : (
             users.map((user) => {
+              // users
               return (
                 <TableRow key={user.id}>
                   <TableCell className="w-14 font-medium">{user.id}</TableCell>
@@ -108,7 +126,7 @@ const UsersList = ({ isLoading, users, setUsers }) => {
                       size="icon-sm"
                       aria-label="Delete"
                       className={cn("hover:bg-red-400 rounded-full")}
-                      onClick={() => handleUserDelete(user.id)}
+                      onClick={() => handleUserDelete(user)}
                     >
                       <TrashIcon size={20} strokeWidth={2} />
                     </Button>
@@ -119,6 +137,18 @@ const UsersList = ({ isLoading, users, setUsers }) => {
           )}
         </TableBody>
       </Table>
+      <Popup
+        open={openDialogue}
+        onClick={confirmDelete}
+        onOpenChange={(open) => {
+          if (!open) {
+            setOpenDialogue(false);
+            setUserToDelete(null);
+          }
+        }}
+        title={`Delete Confirmation`}
+        message={`Are you sure you want to delete ${userToDelete?.firstName} (Id: ${userToDelete?.id})?`}
+      />
     </div>
   );
 };

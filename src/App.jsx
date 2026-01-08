@@ -19,7 +19,7 @@ const App = () => {
   const [optVal, setOptVal] = useState(5);
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
-  
+
   const debouncedSearch = useDebounce(searchValue, 500);
   // handle goto page
   const handleGoto = (val) => setPage(+val);
@@ -42,7 +42,7 @@ const App = () => {
         setUsers(data.users);
         setTotalUsers(data.total);
       } catch (error) {
-        searchValue("");
+        setSearchValue("");
         console.error("Error fetching users:", error);
       } finally {
         setIsLoading(false);
