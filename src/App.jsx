@@ -32,8 +32,8 @@ const App = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchUsers = async () => {
-      setIsLoading(true);
 
       const skip = (page - 1) * optVal;
 
