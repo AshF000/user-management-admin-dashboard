@@ -9,9 +9,9 @@ import {
 const ShowPerPage = ({ optVal, onChange }) => {
   return (
     <div className="flex gap-6 items-center">
-      <label>Show per page</label>
+      <label htmlFor="opValSelect">Show per page</label>
 
-      <Select onValueChange={onChange} defaultValue={optVal}>
+      <Select id="opValSelect" onValueChange={onChange} defaultValue={optVal}>
         <SelectTrigger className="w-[120px!]">
           <SelectValue placeholder="Theme" />
         </SelectTrigger>
