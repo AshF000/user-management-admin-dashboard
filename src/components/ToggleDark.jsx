@@ -23,20 +23,18 @@ const ToggleDark = () => {
   };
 
   return (
-    <>
-      <div className="flex items-center gap-2">
-        <Switch
-          checked={checked}
-          onCheckedChange={onCheckedChange}
-          className={cn(checked ? "" : "bg-black!")}
-        />
-        {checked ? (
-          <Sun className="fill-orange-400 text-orange-200" />
-        ) : (
-          <Moon className="fill-black" />
-        )}
-      </div>
-    </>
+    <div className="flex items-center gap-2">
+      <Switch
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+        className={cn(checked ? "" : "bg-black!")}
+      />
+      {checked ? (
+        <Sun className="fill-orange-400 text-orange-200" />
+      ) : (
+        <Moon className="fill-black" />
+      )}
+    </div>
   );
 };
 

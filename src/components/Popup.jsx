@@ -5,12 +5,18 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "./ui/button";
 
-const Popup = ({ open, onOpenChange, title, message, onClick }) => {
+const Popup = ({
+  open,
+  onOpenChange,
+  title,
+  message,
+  onClick,
+  activity = "Confirm",
+}) => {
   return (
     <Dialog open={open} modal={open} onOpenChange={onOpenChange}>
       {/* <DialogTrigger>Open</DialogTrigger> */}
@@ -24,7 +30,7 @@ const Popup = ({ open, onOpenChange, title, message, onClick }) => {
             <Button variant="outline">Cancel</Button>
           </DialogClose>
           <Button type="submit" onClick={onClick}>
-            Save changes
+            {activity}
           </Button>
         </DialogFooter>
       </DialogContent>
